@@ -2,6 +2,7 @@ import robot_code
 import field
 import driver_station as ds
 import window as win
+import robot
 
 
 def run():
@@ -18,6 +19,9 @@ def run():
 
         # loop though robot code
         robot_code.robot_code()
+
+        # draw robot to screen
+        robot.draw()
 
         # flip pygame window
         win.flip()
