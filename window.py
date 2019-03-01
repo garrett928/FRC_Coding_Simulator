@@ -1,10 +1,14 @@
 import pygame
 import sys
 
+
+WIDTH = 1017
+HEIGTH = 528
+
 # create field background
 background_img = pygame.image.load("game_field.jpg")
 # create main screen
-screen = pygame.display.set_mode((1017, 528))
+screen = pygame.display.set_mode((WIDTH, HEIGTH))
 # set window title
 pygame.display.set_caption("Robot Sim")
 
