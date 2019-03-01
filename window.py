@@ -3,6 +3,7 @@ import sys
 
 background_image = pygame.image.load("game_field.jpg")
 screen = pygame.display.set_mode((1017, 528))
+print("starting screen")
 
 
 def check_close():
