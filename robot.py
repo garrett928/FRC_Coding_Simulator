@@ -31,9 +31,7 @@ def draw():
 
     # Add the robot surface to the main window surface.
     # The x and y from the field module is given from the center
-    rotated_robot_img = pygame.transform.rotate(org_robot_img, theta)
     rotated_robot = pygame.transform.rotate(robot, theta)
-    #win.screen.blit(rotated_robot, [x + width/2, y + height/2])
     win.screen.blit(rotated_robot, rotated_robot.get_rect(center=(x, y)))
 
 
