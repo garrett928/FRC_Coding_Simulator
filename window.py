@@ -1,8 +1,13 @@
 import pygame
 import sys
 
-background_image = pygame.image.load("game_field.jpg")
+# create field background
+background_img = pygame.image.load("game_field.jpg")
+# create main screen
 screen = pygame.display.set_mode((1017, 528))
+# set window title
+pygame.display.set_caption("Robot Sim")
+
 print("starting screen")
 
 
@@ -20,8 +25,7 @@ def init():
     # init pygame
     pygame.init()
 
-    # set window title
-    pygame.display.set_caption("Robot Sim")
+
 
     # flip to new display to refresh screen
     pygame.display.flip()
@@ -29,7 +33,7 @@ def init():
 
 def draw_bg():
     """Draw the fields background image"""
-    screen.blit(background_image, [0, 0])
+    screen.blit(background_img, [0, 0])
 
 
 def flip():
