@@ -67,6 +67,8 @@ def drive():
     turn(delta_theta)
 
     # calc new x and Y
+    if not valid_drive(throttle):
+        throttle = 0
     x += throttle * math.cos(theta * math.pi/180)
     y -= throttle * math.sin(theta * math.pi/180)
     print("x, y = (" + str(x) +", " + str(y) + ")")
@@ -79,3 +81,19 @@ def turn(angle):
 
     # increase field angle
     theta += angle
+
+
+def valid_drive(throttle):
+    temp_x = throttle * math.cos(theta * math.pi/180)
+    temp_y = throttle * math.sin(theta * math.pi/180)
+
+    if x <= field.X_PADDING and temp_x < 0:
+        return False
+    elif x >= win.WIDTH - field.X_PADDING and temp_x > 0:
+        return False
+    elif y <= field.Y_PADDING and temp_y > 0:
+        return False
+    elif y >= win.HEIGTH - field.Y_PADDING and temp_y < 0:
+        return False
+    else:
+        return True
