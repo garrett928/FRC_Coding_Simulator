@@ -1,7 +1,8 @@
 import pygame
 
 
-# setup key delay though pygame
+# flag to keep track of if robot code should run in infinite loop or not
+robot_stop = False
 
 
 
