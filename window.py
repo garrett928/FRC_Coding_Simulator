@@ -1,7 +1,6 @@
 import pygame
 import sys
 
-
 WIDTH = 1017
 HEIGTH = 528
 
@@ -30,12 +29,11 @@ def check_close():
                 pygame.quit()
                 sys.exit()
 
+
 def init():
     """init game window and pygame"""
     # init pygame
     pygame.init()
-
-
 
     # flip to new display to refresh screen
     pygame.display.flip()
