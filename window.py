@@ -17,12 +17,18 @@ print("starting screen")
 
 def check_close():
     """check if window has requested to exit"""
+    keys = pygame.key.get_pressed()
+    ctrl_held = keys[pygame.K_LCTRL] or keys[pygame.K_RCTRL]
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.display.quit()
             pygame.quit()
             sys.exit()
-
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q and ctrl_held:
+                pygame.display.quit()
+                pygame.quit()
+                sys.exit()
 
 def init():
     """init game window and pygame"""

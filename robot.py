@@ -12,12 +12,17 @@ y = field.RED_2[1]
 # field heading, keep track of robot angle
 theta = 0
 delta_theta = 0
+
 # robot width and height
-width = 60
-height = 60
+width = 30
+height = 30
+
+MAX_THROTTLE = 3
+MAX_DELTA_THETA = 4
 
 # create robot image
 org_robot_img = pygame.image.load("robot.png")
+org_robot_img = pygame.transform.scale(org_robot_img, [width, height])
 
 # create a robot surface to be added to the main window
 robot = pygame.Surface([width, height], pygame.SRCALPHA)
@@ -52,16 +57,16 @@ def drive():
     # print of anything is pressed
     if ds.UP_PRESSED:
         # increase throttle when pressing forward
-        throttle += 4
+        throttle += MAX_THROTTLE
     if ds.DOWN_PRESSED:
         # decrease throttle when pressing forward
-        throttle -= 4
+        throttle -= MAX_THROTTLE
     if ds.LEFT_PRESSED:
         # increase amount to turn by -2
-        delta_theta += 4
+        delta_theta += MAX_DELTA_THETA
     if ds.RIGHT_PRESSED:
         # increase amount to turn by 2
-        delta_theta -= 4
+        delta_theta -= MAX_DELTA_THETA
 
     # turn robot
     turn(delta_theta)
@@ -71,13 +76,13 @@ def drive():
         throttle = 0
     x += throttle * math.cos(theta * math.pi/180)
     y -= throttle * math.sin(theta * math.pi/180)
-    print("x, y = (" + str(x) +", " + str(y) + ")")
+    # print("x, y = (" + str(x) +", " + str(y) + ")")
 
 
 def turn(angle):
     global theta
-    print("angle: " + str(angle))
-    print("theta " + str(theta))
+    # print("angle: " + str(angle))
+    # print("theta " + str(theta))
 
     # increase field angle
     theta += angle
@@ -87,13 +92,28 @@ def valid_drive(throttle):
     temp_x = throttle * math.cos(theta * math.pi/180)
     temp_y = throttle * math.sin(theta * math.pi/180)
 
+    new_x = x + (temp_x * 2)
+    new_y = y - (temp_y * 2)
+    # get original robot rect
+    robot_rect = robot.get_rect(center=(new_x, new_y))
+
+    # create a rect for where the robot WILL be so it can avoid
+    # running into something before it runs into it
+    print(robot_rect)
+    # if robot is going left and at left edge
     if x <= field.X_PADDING and temp_x < 0:
         return False
+    # if robot is going right and at right edge
     elif x >= win.WIDTH - field.X_PADDING and temp_x > 0:
         return False
+    # if robot is going up and at top edge
     elif y <= field.Y_PADDING and temp_y > 0:
         return False
+    # if robot is going down and is on bottom edge
     elif y >= win.HEIGTH - field.Y_PADDING and temp_y < 0:
+        return False
+    # if robot is GOING to collide with the cargo ship
+    elif robot_rect.colliderect(field.cargo_ship):
         return False
     else:
         return True
