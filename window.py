@@ -1,5 +1,8 @@
 import pygame
 import sys
+import driver_station as ds
+
+from button import Button
 
 WIDTH = 1017
 HEIGTH = 528
@@ -10,6 +13,8 @@ background_img = pygame.image.load("game_field.jpg")
 screen = pygame.display.set_mode((WIDTH, HEIGTH))
 # set window title
 pygame.display.set_caption("Robot Sim")
+
+start_button = Button(screen, "start", 10, 10, 40, 20)
 
 print("starting screen")
 
@@ -29,6 +34,10 @@ def check_close():
                 pygame.quit()
                 sys.exit()
 
+
+def check_buttons():
+    if start_button.is_clicked():
+        ds.robot_stop = False
 
 def init():
     """init game window and pygame"""

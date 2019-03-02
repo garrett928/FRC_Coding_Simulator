@@ -28,8 +28,7 @@ org_robot_img = pygame.transform.scale(org_robot_img, [width, height])
 robot = pygame.Surface([width, height], pygame.SRCALPHA)
 # add the robot image to the robot
 # robot robot left to face "forward"
-robot.blit(pygame.transform.rotate(org_robot_img, -90), [0, 0])
-
+robot.blit(org_robot_img, [0, 0])
 
 def draw():
     """Draw robot to screen"""

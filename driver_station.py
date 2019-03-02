@@ -2,7 +2,7 @@ import pygame
 
 
 # flag to keep track of if robot code should run in infinite loop or not
-robot_stop = False
+robot_stop = True
 
 
 
