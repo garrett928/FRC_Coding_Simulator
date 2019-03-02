@@ -17,14 +17,16 @@ def run():
         # redraw bg before anything else
         win.draw_bg()
 
-        # loop though robot code
-        robot_code.robot_code()
+        if not ds.robot_stop:
+            # loop though robot code
+            robot_code.robot_code()
 
         # draw robot to screen
         robot.draw()
 
         # flip pygame window
         win.flip()
+
 
 
 run()
