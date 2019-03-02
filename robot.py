@@ -100,6 +100,12 @@ def valid_drive(throttle):
     # create a rect for where the robot WILL be so it can avoid
     # running into something before it runs into it
     print(robot_rect)
+
+    # check if robot has run into any rockets first...
+    for rocket in field.rockets:
+        if robot_rect.colliderect(rocket):
+            return False
+
     # if robot is going left and at left edge
     if x <= field.X_PADDING and temp_x < 0:
         return False
@@ -117,3 +123,79 @@ def valid_drive(throttle):
         return False
     else:
         return True
+
+
+def stop():
+    ds.robot_stop = True
+
+
+def forward(amount):
+    """Drive the robot forward a given amount"""
+
+    # grab global vars
+    global x, y
+
+    throttle = 2
+
+    # scale the amount to be a reasonable number of pixels
+    amount *= 2
+
+    # loop through the pixels to move
+    for step in range(1, amount, throttle):
+        # calc new x and Y
+        if not valid_drive(throttle):
+            throttle = 0
+        x += throttle * math.cos(theta * math.pi / 180)
+        y -= throttle * math.sin(theta * math.pi / 180)
+
+        win.draw_bg()
+        draw()
+        win.flip()
+
+
+def backwards(amount):
+    """Drive the robot forward a given amount"""
+
+    # grab global vars
+    global x, y
+
+    throttle = 2
+
+    # scale the amount to be a reasonable number of pixels
+    amount *= 2
+
+    # loop through the pixels to move
+    for step in range(1, amount, throttle):
+        # calc new x and Y
+        if not valid_drive(throttle):
+            throttle = 0
+        x -= throttle * math.cos(theta * math.pi / 180)
+        y += throttle * math.sin(theta * math.pi / 180)
+
+        win.draw_bg()
+        draw()
+        win.flip()
+
+
+def turn_right(degrees):
+    global theta
+
+    delta_theta = 2
+
+    for step in range(1, degrees, delta_theta):
+        theta -= delta_theta
+        win.draw_bg()
+        draw()
+        win.flip()
+
+
+def turn_left(degrees):
+    global theta
+
+    delta_theta = 2
+
+    for step in range(1, degrees, delta_theta):
+        theta += delta_theta
+        win.draw_bg()
+        draw()
+        win.flip()
